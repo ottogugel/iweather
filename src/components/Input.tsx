@@ -1,12 +1,13 @@
 import { TextInput } from "react-native";
 import { colors } from "../styles/colors";
 
-export function Input() {
+export function Input({...rest}) {
   return (
     <TextInput
-      className="border border-b border-white rounded-lg w-28 h-10 text-center text-xs"
+      className="border border-b bg-bluedark-100 rounded-lg w-80 h-16 text-sm pl-5 text-gray-100"
       placeholder="Search location"
       placeholderTextColor={colors.gray[500]}
+      {...rest}
     />
   );
 }
