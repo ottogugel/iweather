@@ -1,7 +1,6 @@
 import { Image, Text, TouchableOpacity, View, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Modal from 'react-native-modal'
 
 import { Background } from "../components/Background";
 import { Input } from "../components/Input";
@@ -13,12 +12,13 @@ interface City {
   id: number;
   nome: string;
 }
+
 export default function Home() {
 
   const [query, setQuery] = useState('')
   const [allCities, setAllCities] = useState<City[]>([])
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
-  const [isModalVisible, setModalVisible] = useState(false)
+  const [isInputFocused, setInputFocused] = useState(false);
 
   useEffect(() => {
     // Fetch all cities from IBGE API once when the component mounts
@@ -33,17 +33,16 @@ export default function Home() {
     fetchAllCities();
   }, []);
 
-  const fetchCities = async (nome) => {
+  const fetchCities = async (nome: string) => {
     setQuery(nome);
-    if (nome.length > 2) {
+    if (nome.length > 4) {
       // Começar a buscar após digitar 3 caracteres
       const filtered = allCities.filter((city) =>
         city.nome.toLowerCase().includes(nome.toLowerCase())
       );
       setFilteredCities(filtered);
-      setModalVisible(true);
     } else {
-      setModalVisible(false);
+      setFilteredCities([]); // Limpar resultado da consulta.
     }
   };
 
@@ -60,27 +59,33 @@ export default function Home() {
         </Text>
       </View>
       <View className="flex items-center mt-8">
-        <Input value={query} onChangeText={fetchCities} />
-        <Modal isVisible={isModalVisible}>
-          <View>
-            <FlatList
-              data={filteredCities}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                className="bg-white"
-                  onPress={() => {
-                    setQuery(item.nome);
-                    setModalVisible(false);
-                  }}
-                >
-                  <Text className="text-white text-xs">{item.nome}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </Modal>
+        <Input
+          value={query}
+          onChangeText={fetchCities}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
+        />
       </View>
+      {isInputFocused && (
+      <View className="bg-bluedark-100 w-80 h-52 left-14 top-2 rounded-lg">
+        <FlatList
+          data={filteredCities}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                setQuery(item.nome);
+                setInputFocused(false);
+              }}
+            >
+              <Text className="text-white text-sm ml-3 mt-2 underline">
+                {item.nome}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+      )}
     </Background>
   );
 }

@@ -4,7 +4,7 @@ import { colors } from "../styles/colors";
 export function Input({...rest}) {
   return (
     <TextInput
-      className="border border-b bg-bluedark-100 rounded-lg w-80 h-16 text-sm pl-5 text-gray-100"
+      className="bg-bluedark-100 rounded-lg w-80 h-16 text-sm pl-5 text-gray-100 focus:border focus:border-bluelight-100"
       placeholder="Search location"
       placeholderTextColor={colors.gray[500]}
       {...rest}
