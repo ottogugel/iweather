@@ -1,27 +1,22 @@
-import { Image, Text, View } from "react-native";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { router } from "expo-router";
-
+import { Text, View } from "react-native";
 import { Background } from "../components/Background";
-import { Input } from "../components/Input";
+import { Card } from "../components/Card";
 
-import Logo from "../assets/logo.png";
-export default function Home() {
+export default function Weather() {
   return (
     <Background>
-      <Image source={Logo} className="top-10 left-28" />
-      <View className="flex items-center justify-center mt-60">
-        <Text>
-          <Text className="text-2xl text-zinc-50">Welcome to</Text>
-          <Text className="text-2xl text-bluelight-100"> TypeWeather</Text>
-        </Text>
-        <Text className="text-sm text-gray-200 mt-1">
-          Choose a location to see the weather forecast
-        </Text>
+      <View className="items-center">
+        <Card />
       </View>
-      <View className="flex items-center mt-8">
-        <Input />
+      <View className="flex-1 items-center justify-center rounded-lg  bg-gray-800 w-80 h-72">
+        <Text className=" text-white">Sensação Termica 26ºc</Text>
+        <Text className=" text-white">Probabilidade de chuva 0%</Text>
+        <Text className=" text-white">Velocidade do vento 8km/h</Text>
+        <Text className=" text-white">Umidade do ar 40%</Text>
+        <Text className=" text-white">Índice UV 5</Text>
+      </View>
+      <View className="flex-1 items-center justify-center rounded-lg   bg-gray-800 h-44 w-80">
+        <Text className=" text-white">Next Days</Text>
       </View>
     </Background>
   );
