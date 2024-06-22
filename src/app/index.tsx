@@ -1,19 +1,24 @@
 import { Image, Text, View } from "react-native";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { router } from "expo-router";
+import { useState } from "react";
 
 import { Background } from "../components/Background";
-import { Input } from "../components/Input";
 
 import Logo from "../assets/logo.png";
+// import { Input } from "../components/Input";
+import { useRouter } from "expo-router";
+import { Input } from "../components/Input";
 import { Button } from "../components/Button";
-import { router } from "expo-router";
-export default function Home() {
 
-  function handleWeather() {
-    router.navigate("weather");
-  }
+export default function Home() {
+  const [city, setCity] = useState("");
+  const router = useRouter()
+
+  const handleSearch = () => {
+    if(city.trim()) {
+      router.push(`/weather?city=${city}`)
+    }
+  };
+
 
   return (
     <Background>
@@ -28,10 +33,8 @@ export default function Home() {
         </Text>
       </View>
       <View className="flex items-center mt-8">
-        <Input />
-      </View>
-      <View className="flex items-center mt-8">
-        <Button title="Teste" onPress={handleWeather} />
+        <Input value={city} onChangeText={setCity} />
+        <Button title="Search" onPress={handleSearch} />
       </View>
     </Background>
   );

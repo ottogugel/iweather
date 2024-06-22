@@ -1,7 +1,5 @@
 import "../styles/global.css";
 
-import { Slot } from "expo-router";
-
 import { Loading } from "../components/Loading";
 
 import {
@@ -10,6 +8,8 @@ import {
   Nunito_500Medium,
   Nunito_400Regular,
 } from "@expo-google-fonts/nunito";
+import { Slot } from "expo-router";
+import { Background } from "../components/Background";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
