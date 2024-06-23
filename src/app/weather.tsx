@@ -4,8 +4,10 @@ import { useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import { Background } from "../components/Background";
 import { BackButton } from "../components/BackButton";
+import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { gray } from "tailwindcss/colors";
 
-const API_KEY = "39bc4ec94c59372925e033f62645f527";
+
 
 type WeatherData = {
   name: string;
@@ -65,6 +67,7 @@ export default function WeatherScreen() {
   return (
     <Background>
       <ScrollView className="flex-1 pt-8" showsVerticalScrollIndicator={false}>
+        {/* CARD */}
         <View className="bg-gray-800 px-3 mb-2 rounded-xl">
           <BackButton />
           <ImageBackground
@@ -103,16 +106,12 @@ export default function WeatherScreen() {
         <View className="mb-2 h-80">
           <View className="rounded-xl pt-1 pb-6 px-4 bg-gray-800">
             <View className="flex-row items-center py-4 px-2">
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 11,
-                  height: 22,
-                  marginRight: 18,
-                }}
+              <FontAwesome6
+                name="temperature-half"
+                color={gray[500]}
+                size={24}
               />
-              <Text className="text-sm text-grayt-200 font-bold">
+              <Text className="text-sm text-grayt-200 font-bold ml-5">
                 Feels Like
               </Text>
               <View className="flex-1 self-stretch" />
@@ -128,16 +127,8 @@ export default function WeatherScreen() {
                 paddingHorizontal: 3,
               }}
             >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 19,
-                  height: 21,
-                  marginRight: 15,
-                }}
-              />
-              <Text className="text-grayt-200 text-sm font-bold">
+              <FontAwesome6 name="cloud-rain" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
                 Rainfall
               </Text>
               <View
@@ -163,16 +154,8 @@ export default function WeatherScreen() {
                 paddingHorizontal: 2,
               }}
             >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 20,
-                  height: 16,
-                  marginRight: 14,
-                }}
-              />
-              <Text className="text-grayt-200 text-sm font-bold">
+              <FontAwesome6 name="wind" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
                 Wind speed
               </Text>
               <View
@@ -199,16 +182,8 @@ export default function WeatherScreen() {
                 marginBottom: 18,
               }}
             >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 16,
-                  height: 20,
-                  marginRight: 17,
-                }}
-              />
-              <Text className="text-grayt-200 text-sm font-bold">
+              <Ionicons name="water-outline" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
                 Humidity
               </Text>
               <View
@@ -232,16 +207,10 @@ export default function WeatherScreen() {
                 alignItems: "center",
               }}
             >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 19,
-                  height: 19,
-                  marginRight: 15,
-                }}
-              />
-              <Text className="text-grayt-200 text-sm font-bold">UV Index</Text>
+              <Feather name="sun" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
+                UV Index
+              </Text>
               <View
                 style={{
                   flex: 1,
