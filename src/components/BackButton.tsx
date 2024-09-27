@@ -13,7 +13,7 @@ export function BackButton() {
   return (
     <View className="absolute top-4 left-2">
       <TouchableOpacity onPress={handleGoBack} className="p-5">
-        <Entypo name="chevron-thin-left" color={white} size={28} />
+        <Entypo name="chevron-thin-left" color={white} size={24} />
       </TouchableOpacity>
     </View>
   );

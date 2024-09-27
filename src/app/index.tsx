@@ -26,7 +26,7 @@ export default function Home() {
       <View className="flex items-center justify-center mt-60">
         <Text>
           <Text className="text-2xl text-zinc-50">Welcome to</Text>
-          <Text className="text-2xl text-bluelight-100"> TypeWeather</Text>
+          <Text className="text-2xl text-bluelight-100"> iWeather</Text>
         </Text>
         <Text className="text-sm text-gray-200 mt-1">
           Choose a location to see the weather forecast
