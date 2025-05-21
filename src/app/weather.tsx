@@ -9,7 +9,7 @@ import { gray } from "tailwindcss/colors";
 import LottieView from "lottie-react-native";
 import dayjs from 'dayjs';
 
-
+const API_KEY = process.env.REACT_APP_API_KEY;
 const data = dayjs().format('MMMM D, YYYY');
 
 type WeatherData = {
@@ -78,12 +78,9 @@ export default function WeatherScreen() {
   }
 
   return (
-    <ScrollView
-      className="flex-1 pt-8 bg-bluedark-100"
-      showsVerticalScrollIndicator={false}
-    >
+    <View className="flex-1 bg-gray-900">
       {/* CARD */}
-      <View className="bg-gray-800 px-3 mb-2 rounded-xl">
+      <View className="bg-gray-400 px-5 rounded-xl left-6 w-96 h-52">
         <BackButton />
         <ImageBackground
           style={{
@@ -93,10 +90,8 @@ export default function WeatherScreen() {
             marginTop: 12,
           }}
         >
-          <Text className="text-white text-base mb-2 font-bold">
-            {weather.name}
-          </Text>
-          <Text className="text-white text-xs mb-28">{data}</Text>
+          <Text className="text-white text-base font-bold">{weather.name}</Text>
+          <Text className="text-white text-xs ">{data}</Text>
           <View className="flex-row">
             <View className="flex-1 self-start mt-2 mr-1">
               <Text className="text-white text-5xl mb-4 font-extrabold">
@@ -127,125 +122,315 @@ export default function WeatherScreen() {
         </ImageBackground>
       </View>
       {/* DETAILS */}
-      <View className="mb-2 h-80">
-        <View className="rounded-xl pt-1 pb-6 px-4 bg-gray-800">
-          <View className="flex-row items-center py-4 px-2">
-            <FontAwesome6 name="temperature-half" color={gray[500]} size={24} />
-            <Text className="text-sm text-grayt-200 font-bold ml-5">
-              Feels Like
-            </Text>
-            <View className="flex-1 self-stretch" />
-            <Text className="text-white text-base">
-              {weather.main.feels_like}ºc
-            </Text>
-          </View>
-          <View className="flex-row items-center py-4 px-1">
-            <FontAwesome6 name="cloud-rain" color={gray[500]} size={24} />
-            <Text className="text-sm text-grayt-200 font-bold ml-4">
-              Rainfall
-            </Text>
-            <View className="flex-1 self-stretch" />
-            <Text className="text-white text-base">0%</Text>
-          </View>
-          <View className="flex-row items-center py-4 px-1">
-            <FontAwesome6 name="wind" color={gray[500]} size={24} />
-            <Text className="text-sm text-grayt-200 font-bold ml-4">
-              Wind speed
-            </Text>
-            <View className="flex-1 self-stretch" />
-            <Text className="text-white text-base">
-              {weather.wind.speed} km/h
-            </Text>
-          </View>
-          <View className="flex-row items-center py-4 px-1 mb-4">
-            <Ionicons name="water-outline" color={gray[500]} size={24} />
-            <Text className="text-sm text-grayt-200 font-bold ml-4">
-              Humidity
-            </Text>
-            <View className="flex-1 self-stretch" />
-            <Text className="text-white text-base">
-              {weather.main.humidity}%
-            </Text>
-          </View>
-          <View className="flex-row items-center px-1">
-            <Feather name="sun" color={gray[500]} size={24} />
-            <Text className="text-sm text-grayt-200 font-bold ml-4">
-              UV Index
-            </Text>
-            <View className="flex-1 self-stretch" />
-            <Text className="text-white text-base">
-              5
-            </Text>
+      <ScrollView
+        className="flex-1 bg-gray-900"
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="h-80">
+          <View className="rounded-xl pt-1 pb-6 px-4 bg-gray-900">
+            <View className="flex-row items-center py-4 px-2">
+              <FontAwesome6
+                name="temperature-half"
+                color={gray[500]}
+                size={24}
+              />
+              <Text className="text-sm text-grayt-200 font-bold ml-5">
+                Feels Like
+              </Text>
+              <View className="flex-1 self-stretch" />
+              <Text className="text-white text-base">
+                {weather.main.feels_like}ºc
+              </Text>
+            </View>
+            <View className="flex-row items-center py-4 px-1">
+              <FontAwesome6 name="cloud-rain" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
+                Rainfall
+              </Text>
+              <View className="flex-1 self-stretch" />
+              <Text className="text-white text-base">0%</Text>
+            </View>
+            <View className="flex-row items-center py-4 px-1">
+              <FontAwesome6 name="wind" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
+                Wind speed
+              </Text>
+              <View className="flex-1 self-stretch" />
+              <Text className="text-white text-base">
+                {weather.wind.speed} km/h
+              </Text>
+            </View>
+            <View className="flex-row items-center py-4 px-1 mb-4">
+              <Ionicons name="water-outline" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
+                Humidity
+              </Text>
+              <View className="flex-1 self-stretch" />
+              <Text className="text-white text-base">
+                {weather.main.humidity}%
+              </Text>
+            </View>
+            <View className="flex-row items-center px-1">
+              <Feather name="sun" color={gray[500]} size={24} />
+              <Text className="text-sm text-grayt-200 font-bold ml-4">
+                UV Index
+              </Text>
+              <View className="flex-1 self-stretch" />
+              <Text className="text-white text-base">5</Text>
+            </View>
           </View>
         </View>
-      </View>
-      {/* NEXT DAY CARD */}
-      <View className="bg-gray-800 px-7 py-8 rounded-xl">
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 17,
-          }}
-        >
-          <Text
-            style={{
-              color: "#BEBED4",
-              fontSize: 14,
-            }}
-          >
-            {"Ter"}
-          </Text>
-          <Text
-            style={{
-              color: "#BEBED4",
-              fontSize: 14,
-            }}
-          >
-            {"Qua"}
-          </Text>
-          <Text
-            style={{
-              color: "#BEBED4",
-              fontSize: 14,
-            }}
-          >
-            {"Qui"}
-          </Text>
-          <Text
-            style={{
-              color: "#BEBED4",
-              fontSize: 14,
-            }}
-          >
-            {"Sex"}
-          </Text>
-          <Text
-            style={{
-              color: "#BEBED4",
-              fontSize: 14,
-            }}
-          >
-            {"Sab"}
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 16,
-          }}
-        >
-          <View
-            style={{
-              width: 30,
-              marginRight: 37,
-            }}
-          >
+        {/* NEXT DAY CARD */}
+        <View className="bg-gray-900 px-10 py-8 rounded-xl">
+          <View className="flex-row justify-between items-center">
+            <Text className="text-sm text-grayt-300">{"Ter"}</Text>
+            <Text className="text-sm text-grayt-300">{"Qua"}</Text>
+            <Text className="text-sm text-grayt-300">{"Qui"}</Text>
+            <Text className="text-sm text-grayt-300">{"Sex"}</Text>
+            <Text className="text-sm text-grayt-300">{"Sab"}</Text>
+          </View>
+          <View className="flex-row items-center mb-4">
+            <View className="w-8 mr-9">
+              <View className="mb-1">
+                <View>
+                  <Image
+                    source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                    resizeMode={"stretch"}
+                    style={{
+                      height: 18,
+                    }}
+                  />
+                  <Image
+                    source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                    resizeMode={"stretch"}
+                    style={{
+                      position: "absolute",
+                      top: -8,
+                      right: -4,
+                      width: 20,
+                      height: 12,
+                    }}
+                  />
+                  <Image
+                    source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                    resizeMode={"stretch"}
+                    style={{
+                      position: "absolute",
+                      bottom: -11,
+                      right: 5,
+                      width: 7,
+                      height: 11,
+                    }}
+                  />
+                </View>
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    position: "absolute",
+                    top: -4,
+                    left: 5,
+                    width: 6,
+                    height: 4,
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginHorizontal: 5,
+                }}
+              >
+                <View
+                  style={{
+                    width: 3,
+                    height: 4,
+                    backgroundColor: "#507CB1",
+                    shadowColor: "#FFFFFF33",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                      width: 0,
+                      height: 9,
+                    },
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    width: 3,
+                    height: 4,
+                    backgroundColor: "#507CB1",
+                    shadowColor: "#FFFFFF33",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                      width: 0,
+                      height: 9,
+                    },
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }}
+                ></View>
+              </View>
+              <View
+                style={{
+                  width: 3,
+                  height: 4,
+                  backgroundColor: "#507CB1",
+                  marginHorizontal: 9,
+                  shadowColor: "#FFFFFF33",
+                  shadowOpacity: 0.2,
+                  shadowOffset: {
+                    width: 0,
+                    height: 9,
+                  },
+                  shadowRadius: 3,
+                  elevation: 3,
+                }}
+              ></View>
+            </View>
             <View
               style={{
-                marginBottom: 1,
+                width: 30,
+                marginRight: 43,
+              }}
+            >
+              <View
+                style={{
+                  marginBottom: 2,
+                }}
+              >
+                <View style={{}}>
+                  <Image
+                    source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                    resizeMode={"stretch"}
+                    style={{
+                      height: 18,
+                    }}
+                  />
+                  <Image
+                    source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                    resizeMode={"stretch"}
+                    style={{
+                      position: "absolute",
+                      top: -8,
+                      right: -4,
+                      width: 20,
+                      height: 12,
+                    }}
+                  />
+                </View>
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    position: "absolute",
+                    top: -4,
+                    left: 5,
+                    width: 6,
+                    height: 4,
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginHorizontal: 7,
+                }}
+              >
+                <View
+                  style={{
+                    width: 3,
+                    height: 4,
+                    backgroundColor: "#507CB1",
+                    shadowColor: "#FFFFFF33",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                      width: 0,
+                      height: 9,
+                    },
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    width: 3,
+                    height: 4,
+                    backgroundColor: "#507CB1",
+                    shadowColor: "#FFFFFF33",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                      width: 0,
+                      height: 9,
+                    },
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    width: 3,
+                    height: 4,
+                    backgroundColor: "#507CB1",
+                    shadowColor: "#FFFFFF33",
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                      width: 0,
+                      height: 9,
+                    },
+                    shadowRadius: 3,
+                    elevation: 3,
+                  }}
+                ></View>
+              </View>
+            </View>
+            <View
+              style={{
+                width: 28,
+                marginRight: 33,
+              }}
+            >
+              <View style={{}}>
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    height: 29,
+                  }}
+                />
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    position: "absolute",
+                    bottom: -2,
+                    left: -14,
+                    width: 28,
+                    height: 16,
+                  }}
+                />
+              </View>
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: -8,
+                  width: 19,
+                  height: 11,
+                }}
+              />
+            </View>
+            <View
+              style={{
+                width: 30,
+                marginRight: 40,
               }}
             >
               <View style={{}}>
@@ -267,17 +452,6 @@ export default function WeatherScreen() {
                     height: 12,
                   }}
                 />
-                <Image
-                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                  resizeMode={"stretch"}
-                  style={{
-                    position: "absolute",
-                    bottom: -11,
-                    right: 5,
-                    width: 7,
-                    height: 11,
-                  }}
-                />
               </View>
               <Image
                 source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
@@ -291,354 +465,125 @@ export default function WeatherScreen() {
                 }}
               />
             </View>
-            <View
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginHorizontal: 5,
+                width: 28,
+                height: 29,
               }}
-            >
-              <View
-                style={{
-                  width: 3,
-                  height: 4,
-                  backgroundColor: "#507CB1",
-                  shadowColor: "#FFFFFF33",
-                  shadowOpacity: 0.2,
-                  shadowOffset: {
-                    width: 0,
-                    height: 9,
-                  },
-                  shadowRadius: 3,
-                  elevation: 3,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 3,
-                  height: 4,
-                  backgroundColor: "#507CB1",
-                  shadowColor: "#FFFFFF33",
-                  shadowOpacity: 0.2,
-                  shadowOffset: {
-                    width: 0,
-                    height: 9,
-                  },
-                  shadowRadius: 3,
-                  elevation: 3,
-                }}
-              ></View>
-            </View>
+            />
             <View
               style={{
-                width: 3,
-                height: 4,
-                backgroundColor: "#507CB1",
-                marginHorizontal: 9,
-                shadowColor: "#FFFFFF33",
-                shadowOpacity: 0.2,
-                shadowOffset: {
-                  width: 0,
-                  height: 9,
-                },
-                shadowRadius: 3,
-                elevation: 3,
+                position: "absolute",
+                bottom: 7,
+                left: 4,
+                width: 23,
+                height: 3,
+                backgroundColor: "#FFEC8D",
+                borderRadius: 54,
               }}
             ></View>
           </View>
           <View
             style={{
-              width: 30,
-              marginRight: 43,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 6,
             }}
           >
-            <View
+            <Text
               style={{
-                marginBottom: 2,
+                color: "#F9F9F9",
+                fontSize: 14,
               }}
             >
-              <View style={{}}>
-                <Image
-                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                  resizeMode={"stretch"}
-                  style={{
-                    height: 18,
-                  }}
-                />
-                <Image
-                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                  resizeMode={"stretch"}
-                  style={{
-                    position: "absolute",
-                    top: -8,
-                    right: -4,
-                    width: 20,
-                    height: 12,
-                  }}
-                />
-              </View>
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  position: "absolute",
-                  top: -4,
-                  left: 5,
-                  width: 6,
-                  height: 4,
-                }}
-              />
-            </View>
-            <View
+              {"32ºc"}
+            </Text>
+            <Text
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginHorizontal: 7,
+                color: "#F9F9F9",
+                fontSize: 14,
               }}
             >
-              <View
-                style={{
-                  width: 3,
-                  height: 4,
-                  backgroundColor: "#507CB1",
-                  shadowColor: "#FFFFFF33",
-                  shadowOpacity: 0.2,
-                  shadowOffset: {
-                    width: 0,
-                    height: 9,
-                  },
-                  shadowRadius: 3,
-                  elevation: 3,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 3,
-                  height: 4,
-                  backgroundColor: "#507CB1",
-                  shadowColor: "#FFFFFF33",
-                  shadowOpacity: 0.2,
-                  shadowOffset: {
-                    width: 0,
-                    height: 9,
-                  },
-                  shadowRadius: 3,
-                  elevation: 3,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 3,
-                  height: 4,
-                  backgroundColor: "#507CB1",
-                  shadowColor: "#FFFFFF33",
-                  shadowOpacity: 0.2,
-                  shadowOffset: {
-                    width: 0,
-                    height: 9,
-                  },
-                  shadowRadius: 3,
-                  elevation: 3,
-                }}
-              ></View>
-            </View>
-          </View>
-          <View
-            style={{
-              width: 28,
-              marginRight: 33,
-            }}
-          >
-            <View style={{}}>
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  height: 29,
-                }}
-              />
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  position: "absolute",
-                  bottom: -2,
-                  left: -14,
-                  width: 28,
-                  height: 16,
-                }}
-              />
-            </View>
-            <Image
-              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-              resizeMode={"stretch"}
+              {"32ºc"}
+            </Text>
+            <Text
               style={{
-                position: "absolute",
-                top: 0,
-                right: -8,
-                width: 19,
-                height: 11,
+                color: "#F9F9F9",
+                fontSize: 14,
               }}
-            />
-          </View>
-          <View
-            style={{
-              width: 30,
-              marginRight: 40,
-            }}
-          >
-            <View style={{}}>
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  height: 18,
-                }}
-              />
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  position: "absolute",
-                  top: -8,
-                  right: -4,
-                  width: 20,
-                  height: 12,
-                }}
-              />
-            </View>
-            <Image
-              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-              resizeMode={"stretch"}
+            >
+              {"32ºc"}
+            </Text>
+            <Text
               style={{
-                position: "absolute",
-                top: -4,
-                left: 5,
-                width: 6,
-                height: 4,
+                color: "#F9F9F9",
+                fontSize: 14,
               }}
-            />
+            >
+              {"32ºc"}
+            </Text>
+            <Text
+              style={{
+                color: "#F9F9F9",
+                fontSize: 14,
+              }}
+            >
+              {"32ºc"}
+            </Text>
           </View>
-          <Image
-            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-            resizeMode={"stretch"}
-            style={{
-              width: 28,
-              height: 29,
-            }}
-          />
           <View
             style={{
-              position: "absolute",
-              bottom: 7,
-              left: 4,
-              width: 23,
-              height: 3,
-              backgroundColor: "#FFEC8D",
-              borderRadius: 54,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-          ></View>
+          >
+            <Text
+              style={{
+                color: "#7E7E97",
+                fontSize: 14,
+              }}
+            >
+              {"26ºc "}
+            </Text>
+            <Text
+              style={{
+                color: "#7E7E97",
+                fontSize: 14,
+              }}
+            >
+              {"26ºc "}
+            </Text>
+            <Text
+              style={{
+                color: "#7E7E97",
+                fontSize: 14,
+              }}
+            >
+              {"26ºc "}
+            </Text>
+            <Text
+              style={{
+                color: "#7E7E97",
+                fontSize: 14,
+              }}
+            >
+              {"26ºc "}
+            </Text>
+            <Text
+              style={{
+                color: "#7E7E97",
+                fontSize: 14,
+              }}
+            >
+              {"26ºc "}
+            </Text>
+          </View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 6,
-          }}
-        >
-          <Text
-            style={{
-              color: "#F9F9F9",
-              fontSize: 14,
-            }}
-          >
-            {"32ºc"}
-          </Text>
-          <Text
-            style={{
-              color: "#F9F9F9",
-              fontSize: 14,
-            }}
-          >
-            {"32ºc"}
-          </Text>
-          <Text
-            style={{
-              color: "#F9F9F9",
-              fontSize: 14,
-            }}
-          >
-            {"32ºc"}
-          </Text>
-          <Text
-            style={{
-              color: "#F9F9F9",
-              fontSize: 14,
-            }}
-          >
-            {"32ºc"}
-          </Text>
-          <Text
-            style={{
-              color: "#F9F9F9",
-              fontSize: 14,
-            }}
-          >
-            {"32ºc"}
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: "#7E7E97",
-              fontSize: 14,
-            }}
-          >
-            {"26ºc "}
-          </Text>
-          <Text
-            style={{
-              color: "#7E7E97",
-              fontSize: 14,
-            }}
-          >
-            {"26ºc "}
-          </Text>
-          <Text
-            style={{
-              color: "#7E7E97",
-              fontSize: 14,
-            }}
-          >
-            {"26ºc "}
-          </Text>
-          <Text
-            style={{
-              color: "#7E7E97",
-              fontSize: 14,
-            }}
-          >
-            {"26ºc "}
-          </Text>
-          <Text
-            style={{
-              color: "#7E7E97",
-              fontSize: 14,
-            }}
-          >
-            {"26ºc "}
-          </Text>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }

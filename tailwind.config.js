@@ -15,6 +15,7 @@ module.exports = {
         },
         grayt: {
           200: "#BFBFD4",
+          300: "#BEBED4",
         },
       },
     },
